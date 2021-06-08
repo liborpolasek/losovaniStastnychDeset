@@ -4,7 +4,7 @@ using System.Text;
 
 namespace losovaniStastnychDeset
 {
-    class TahaniCisel1 : ITahaniCisel
+    public class TahaniCisel1 : ITahaniCisel
     {
         private List<int> tazenaCisla;
 

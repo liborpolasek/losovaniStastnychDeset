@@ -5,7 +5,7 @@ using System.Text;
 
 namespace losovaniStastnychDeset
 {
-    class VypisCisel
+    public class VypisCisel
     {
         private StringBuilder sb;
         private bool konzole, okno, soubor, builder;
