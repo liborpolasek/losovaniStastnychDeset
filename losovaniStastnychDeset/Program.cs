@@ -9,7 +9,7 @@ namespace losovaniStastnychDeset
     {
         static void Main(string[] args)
         {
-            ITahaniCisel tahani = null;
+            ITahaniCisel tahani;
             int hodKostkou = 1;
             switch (hodKostkou)
             {
@@ -20,35 +20,29 @@ namespace losovaniStastnychDeset
                     tahani = new TahaniCisel2();
                     break;
                 case 3:
+                    tahani = new TahaniCisel1();
                     break;
                 case 4:
+                    tahani = new TahaniCisel1();
                     break;
                 case 5:
+                    tahani = new TahaniCisel1();
                     break;
                 case 6:
+                    tahani = new TahaniCisel1();
                     break;
                 default:
                     tahani = new TahaniCisel1();
                     break;
             }
 
-            using (StreamReader sr = new StreamReader(@"app.config"))
-            {
-                string s;
-                while ((s = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(s);
-                }
-            }
-
+            VypisCisel vypis = new VypisCisel();
             DateTime start = DateTime.Now;
             for (int i = 0; i <= 9; i++)
             {
-                Console.WriteLine(tahani.NextNumber());
+                vypis.Vypis(tahani.NextNumber());
             }
             DateTime end = DateTime.Now;
-
-            tahani.getNumbers().ForEach(i => Console.Write("{0}\t", i));
         }
     }
 }

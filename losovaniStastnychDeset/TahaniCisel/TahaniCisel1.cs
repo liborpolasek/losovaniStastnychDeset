@@ -6,7 +6,7 @@ namespace losovaniStastnychDeset
 {
     class TahaniCisel1 : ITahaniCisel
     {
-        List<int> tazenaCisla;
+        private List<int> tazenaCisla;
 
         public TahaniCisel1()
         {
