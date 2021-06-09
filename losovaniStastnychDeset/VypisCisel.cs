@@ -9,6 +9,7 @@ namespace losovaniStastnychDeset
     {
         private StringBuilder sb;
         private bool konzole, okno, soubor, builder;
+        private String file;
 
         public VypisCisel()
         {
@@ -42,9 +43,21 @@ namespace losovaniStastnychDeset
         private void VypisDoSouboru(int cislo)
         {
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter outputFile = new StreamWriter("LosovaniStastnych10.txt", true))
+            StreamWriter outputFile = null;
+            try
             {
+                outputFile = new StreamWriter(file, true);
                 outputFile.WriteLine(cislo);
+                outputFile.Flush();
+                outputFile.Close();
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -55,19 +68,35 @@ namespace losovaniStastnychDeset
 
         private void SetVypis()
         {
-            using (StreamReader sr = new StreamReader("app.config"))
+            StreamReader sr = null;
+            try
             {
+                sr = new StreamReader("app.config");
+
                 if (sr.ReadLine().Equals("1")) konzole = true;
                 else konzole = false;
 
                 if (sr.ReadLine().Equals("1")) okno = true;
                 else okno = false;
 
-                if (sr.ReadLine().Equals("1")) soubor = true;
+                if (sr.ReadLine().Equals("1"))
+                {
+                    soubor = true;
+                    String dateTime = DateTime.Now.ToString().Replace(".", "_").Replace(":", "_");
+                    file = "LosovaniStastnych10_" + dateTime + ".txt";
+                }
                 else soubor = false;
 
                 if (sr.ReadLine().Equals("1")) builder = true;
                 else builder = false;
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Soubor 'app.config' nebyl nalezen. Vypis je nastaven jen pro konzoli.");
+            }
+            finally 
+            {
+                if (sr == null) konzole = true;
             }
         }
     }
